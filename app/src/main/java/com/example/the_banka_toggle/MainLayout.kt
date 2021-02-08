@@ -52,6 +52,16 @@ class MainLayout @JvmOverloads constructor(
         )
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        measureChildren(widthMeasureSpec, heightMeasureSpec)
+        val maxWidth = MeasureSpec.getSize(widthMeasureSpec)
+        val maxHeight = MeasureSpec.getSize(heightMeasureSpec)
+        setMeasuredDimension(
+            resolveSizeAndState(maxWidth, widthMeasureSpec, 0),
+            resolveSizeAndState(maxHeight, heightMeasureSpec, 0)
+        )
+    }
+
     inner class VerticalOnlyViewDragHelper : ViewDragHelper.Callback() {
 
         override fun tryCaptureView(child: View, pointerId: Int): Boolean =
