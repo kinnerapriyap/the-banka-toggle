@@ -20,6 +20,11 @@ class MainLayout @JvmOverloads constructor(
     private var dragOffset = 0f
     private var yCoordinate = 0
 
+    private val leftBound
+        get() = (width - stretchableSquare.measuredWidth) / 2
+    private val rightBound
+        get() = (width + stretchableSquare.measuredWidth) / 2
+
     private val viewDragHelper: ViewDragHelper
 
     init {
@@ -35,6 +40,16 @@ class MainLayout @JvmOverloads constructor(
             isDebug = false
         )
         stretchableSquare.invalidate()
+    }
+
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        dragRange = height - stretchableSquare.height
+        stretchableSquare.layout(
+            leftBound,
+            yCoordinate,
+            rightBound,
+            yCoordinate + stretchableSquare.measuredHeight
+        )
     }
 
     inner class VerticalOnlyViewDragHelper : ViewDragHelper.Callback() {
