@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.ViewCompat
 import androidx.customview.widget.ViewDragHelper
 
 class MainLayout @JvmOverloads constructor(
@@ -60,6 +61,27 @@ class MainLayout @JvmOverloads constructor(
             resolveSizeAndState(maxWidth, widthMeasureSpec, 0),
             resolveSizeAndState(maxHeight, heightMeasureSpec, 0)
         )
+    }
+
+    override fun computeScroll() {
+        if (viewDragHelper.continueSettling(true)) {
+            ViewCompat.postInvalidateOnAnimation(this)
+        }
+    }
+
+    private fun smoothSlideToTop(): Boolean = smoothSlideTo()
+
+    private fun smoothSlideTo(slideOffset: Float = 0f): Boolean {
+        if (viewDragHelper.smoothSlideViewTo(
+                stretchableSquare,
+                leftBound,
+                (slideOffset * dragRange).toInt()
+            )
+        ) {
+            ViewCompat.postInvalidateOnAnimation(this)
+            return true
+        }
+        return false
     }
 
     inner class VerticalOnlyViewDragHelper : ViewDragHelper.Callback() {
