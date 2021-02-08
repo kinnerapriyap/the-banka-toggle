@@ -1,12 +1,15 @@
 package com.example.the_banka_toggle
 
+import android.content.ClipData
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 
 class StretchableSquare @JvmOverloads constructor(
     context: Context,
@@ -73,4 +76,28 @@ class StretchableSquare @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) =
         setMeasuredDimension(params.size, params.size)
+
+    override fun performClick(): Boolean {
+        super.performClick()
+        return true
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean = when (event?.action) {
+        MotionEvent.ACTION_DOWN -> {
+            val data = ClipData.newPlainText("", "")
+            val shadowBuilder = DragShadowBuilder(this)
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                startDragAndDrop(data, shadowBuilder, this, 0)
+            } else {
+                startDrag(data, shadowBuilder, this, 0)
+            }
+            isVisible = false
+            true
+        }
+        MotionEvent.ACTION_UP -> {
+            performClick()
+            true
+        }
+        else -> false
+    }
 }
