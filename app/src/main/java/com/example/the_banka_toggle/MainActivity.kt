@@ -16,5 +16,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        stretchableSquare.params = StretchableSquareParams(
+            stretchFactor = 1f,
+            size = 300,
+            isTop = true,
+            isDebug = true
+        )
+        stretchableSquare.invalidate()
     }
 }
