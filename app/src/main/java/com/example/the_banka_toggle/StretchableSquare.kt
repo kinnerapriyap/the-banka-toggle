@@ -33,6 +33,28 @@ class StretchableSquare @JvmOverloads constructor(
         super.onDraw(canvas)
         canvas ?: return
         setup()
+
+        path.moveTo(bounds.topLeadingPoint)
+        path.lineTo(bounds.topTrailingPoint)
+
+        if (params.isDebug) {
+            path.lineTo(bounds.controlPointToBottomTrailing)
+            path.addPoint(bounds.controlPointToBottomTrailing)
+            path.moveTo(bounds.topTrailingPoint)
+        }
+        path.quadTo(bounds.controlPointToBottomTrailing, bounds.bottomTrailingPoint)
+
+        path.lineTo(bounds.bottomLeadingPoint)
+
+        if (params.isDebug) {
+            path.lineTo(bounds.controlPointToTopLeading)
+            path.addPoint(bounds.controlPointToTopLeading)
+            path.moveTo(bounds.bottomLeadingPoint)
+        }
+        path.quadTo(bounds.controlPointToTopLeading, bounds.topLeadingPoint)
+
+        if (params.shouldInvert()) canvas.scale(1f, -1f, bounds.midPosition, bounds.midPosition)
+        canvas.drawPath(path, paint)
     }
 
     private fun setup() {
