@@ -2,6 +2,7 @@ package com.example.the_banka_toggle
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
@@ -61,6 +62,34 @@ class MainLayout @JvmOverloads constructor(
             resolveSizeAndState(maxWidth, widthMeasureSpec, 0),
             resolveSizeAndState(maxHeight, heightMeasureSpec, 0)
         )
+    }
+
+    override fun onInterceptTouchEvent(event: MotionEvent?): Boolean =
+        when {
+            event?.action != MotionEvent.ACTION_DOWN -> {
+                viewDragHelper.cancel()
+                super.onInterceptTouchEvent(event)
+            }
+            event.action == MotionEvent.ACTION_DOWN ->
+                viewDragHelper.isViewUnder(
+                    stretchableSquare,
+                    event.x.toInt(),
+                    event.y.toInt()
+                )
+            else -> viewDragHelper.shouldInterceptTouchEvent(event)
+        }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (event == null) return false
+        performClick()
+        viewDragHelper.processTouchEvent(event)
+        if (event.action == MotionEvent.ACTION_UP) smoothSlideToTop()
+        return viewDragHelper.isViewUnder(stretchableSquare, event.x.toInt(), event.y.toInt())
+    }
+
+    override fun performClick(): Boolean {
+        super.performClick()
+        return true
     }
 
     override fun computeScroll() {
