@@ -22,11 +22,6 @@ class MainLayout @JvmOverloads constructor(
     private var dragOffset = 0f
     private var yCoordinate = 0
 
-    private val leftBound
-        get() = (width - stretchableSquare.measuredWidth) / 2
-    private val rightBound
-        get() = (width + stretchableSquare.measuredWidth) / 2
-
     private val viewDragHelper: ViewDragHelper
 
     init {
@@ -47,9 +42,9 @@ class MainLayout @JvmOverloads constructor(
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         dragRange = height - stretchableSquare.height
         stretchableSquare.layout(
-            leftBound,
+            0,
             yCoordinate,
-            rightBound,
+            right,
             yCoordinate + stretchableSquare.measuredHeight
         )
     }
@@ -103,7 +98,7 @@ class MainLayout @JvmOverloads constructor(
     private fun smoothSlideTo(slideOffset: Float = 0f): Boolean {
         if (viewDragHelper.smoothSlideViewTo(
                 stretchableSquare,
-                leftBound,
+                0,
                 (slideOffset * dragRange).toInt()
             )
         ) {
