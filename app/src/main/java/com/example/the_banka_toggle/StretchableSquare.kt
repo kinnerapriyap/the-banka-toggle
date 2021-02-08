@@ -70,4 +70,7 @@ class StretchableSquare @JvmOverloads constructor(
             color = if (params.isDebug) defaultPaintColor else paintColor
         }
     }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) =
+        setMeasuredDimension(params.size, params.size)
 }
