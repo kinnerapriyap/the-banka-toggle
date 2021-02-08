@@ -1,15 +1,12 @@
 package com.example.the_banka_toggle
 
-import android.content.ClipData
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
-import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 
 class StretchableSquare @JvmOverloads constructor(
     context: Context,
