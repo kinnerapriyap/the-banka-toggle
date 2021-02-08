@@ -2,6 +2,7 @@ package com.example.the_banka_toggle
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.customview.widget.ViewDragHelper
 
@@ -30,5 +31,16 @@ class MainLayout @JvmOverloads constructor(
             isDebug = false
         )
         stretchableSquare.invalidate()
+    }
+
+    inner class VerticalOnlyViewDragHelper : ViewDragHelper.Callback() {
+
+        override fun tryCaptureView(child: View, pointerId: Int): Boolean =
+            child == stretchableSquare
+
+        override fun clampViewPositionVertical(child: View, top: Int, dy: Int): Int {
+            val bottomBound = height - stretchableSquare.height
+            return top.coerceAtMost(bottomBound)
+        }
     }
 }
