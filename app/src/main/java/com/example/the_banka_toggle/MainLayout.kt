@@ -16,6 +16,10 @@ class MainLayout @JvmOverloads constructor(
         get() = findViewById(R.id.stretchable_square)
     private val stretchableSquareSize = 300
 
+    private var dragRange = 0
+    private var dragOffset = 0f
+    private var yCoordinate = 0
+
     private val viewDragHelper: ViewDragHelper
 
     init {
@@ -37,6 +41,20 @@ class MainLayout @JvmOverloads constructor(
 
         override fun tryCaptureView(child: View, pointerId: Int): Boolean =
             child == stretchableSquare
+
+        override fun onViewPositionChanged(
+            changedView: View,
+            left: Int,
+            top: Int,
+            dx: Int,
+            dy: Int
+        ) {
+            yCoordinate = top
+            dragOffset = top.toFloat() / dragRange
+            requestLayout()
+        }
+
+        override fun getViewVerticalDragRange(child: View): Int = dragRange
 
         override fun clampViewPositionVertical(child: View, top: Int, dy: Int): Int {
             val bottomBound = height - stretchableSquare.height
