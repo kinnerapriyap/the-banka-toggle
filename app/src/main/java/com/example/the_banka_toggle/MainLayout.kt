@@ -22,6 +22,7 @@ class MainLayout @JvmOverloads constructor(
     private var dragOffset = 0f
     private var yCoordinate = 0
     private var potentiallyAtTop = true
+    private var atTop = true
 
     private val viewDragHelper: ViewDragHelper
 
@@ -61,16 +62,18 @@ class MainLayout @JvmOverloads constructor(
         performClick()
         viewDragHelper.processTouchEvent(event)
         when (event.action) {
-            MotionEvent.ACTION_MOVE -> {
-                potentiallyAtTop = event.y < measuredHeight / 2
-            }
+            MotionEvent.ACTION_MOVE ->
+                potentiallyAtTop = isInTopHalf(event)
             MotionEvent.ACTION_UP -> {
-                if (event.y < measuredHeight / 2) smoothSlideToTop()
+                atTop = isInTopHalf(event)
+                if (atTop) smoothSlideToTop()
                 else smoothSlideToBottom()
             }
         }
         return true
     }
+
+    private fun isInTopHalf(event: MotionEvent) = event.y < measuredHeight / 2
 
     override fun performClick(): Boolean {
         super.performClick()
