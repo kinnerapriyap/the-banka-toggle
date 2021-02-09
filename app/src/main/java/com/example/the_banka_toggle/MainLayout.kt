@@ -7,6 +7,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.customview.widget.ViewDragHelper
+import kotlin.math.abs
 
 class MainLayout @JvmOverloads constructor(
     context: Context,
@@ -17,11 +18,23 @@ class MainLayout @JvmOverloads constructor(
     private val stretchableSquare: StretchableSquare
         get() = findViewById(R.id.stretchable_square)
 
-    private var dragRange = 0
-    private var dragOffset = 0f
-    private var yCoordinate = 0
     private var potentiallyAtTop = true
     private var atTop = true
+    private var stuck = true
+
+    // dp
+    private var yCoordinate = 0
+    private val stickyThreshold
+        get() = measuredHeight / 3
+
+    private val dragRange
+        get() = measuredHeight - StretchableSquareParams.stretchableSquareSize
+    private var dragOffset = 0f
+
+    // px
+    private var yTranslation = 0f
+    private val absTranslation
+        get() = abs(yTranslation)
 
     private val viewDragHelper: ViewDragHelper
 
@@ -36,7 +49,6 @@ class MainLayout @JvmOverloads constructor(
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        dragRange = measuredHeight - stretchableSquare.height
         stretchableSquare.layout(
             0,
             yCoordinate,
@@ -64,10 +76,15 @@ class MainLayout @JvmOverloads constructor(
         when (event.action) {
             MotionEvent.ACTION_MOVE -> {
                 potentiallyAtTop = isInTopHalf(event)
+                yTranslation =
+                    if (potentiallyAtTop) event.y
+                    else event.y - measuredHeight
+                if (stuck) stuck = absTranslation < stickyThreshold
             }
             MotionEvent.ACTION_UP -> {
                 atTop = isInTopHalf(event)
-                yCoordinate = 0
+                yTranslation = 0f
+                stuck = true
                 if (atTop) smoothSlideToTop()
                 else smoothSlideToBottom()
             }
@@ -129,6 +146,11 @@ class MainLayout @JvmOverloads constructor(
             requestLayout()
         }
 
+        override fun onViewReleased(releasedChild: View, xvel: Float, yvel: Float) {
+            super.onViewReleased(releasedChild, xvel, yvel)
+            yCoordinate = 0
+        }
+
         private fun getPaintColor(potentiallyAtTop: Boolean = true): Int =
             if (potentiallyAtTop) android.R.color.holo_blue_light
             else android.R.color.holo_orange_light
@@ -136,6 +158,7 @@ class MainLayout @JvmOverloads constructor(
         override fun getViewVerticalDragRange(child: View): Int = dragRange
 
         private var prevTop = 0
+
         // = is used so view at extremes doesn't jump to saved _UP position not equal to current
         override fun clampViewPositionVertical(child: View, top: Int, dy: Int): Int =
             when {
