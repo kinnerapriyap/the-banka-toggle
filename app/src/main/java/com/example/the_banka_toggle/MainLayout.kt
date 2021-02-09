@@ -79,9 +79,11 @@ class MainLayout @JvmOverloads constructor(
         }
     }
 
-    private fun smoothSlideToTop(): Boolean = smoothSlideTo()
+    private fun smoothSlideToTop(): Boolean = smoothSlideTo(0f)
 
-    private fun smoothSlideTo(slideOffset: Float = 0f): Boolean {
+    private fun smoothSlideToBottom(): Boolean = smoothSlideTo(1f)
+
+    private fun smoothSlideTo(slideOffset: Float): Boolean {
         if (viewDragHelper.smoothSlideViewTo(
                 stretchableSquare,
                 0,
