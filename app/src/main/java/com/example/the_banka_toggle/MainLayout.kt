@@ -31,13 +31,7 @@ class MainLayout @JvmOverloads constructor(
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        stretchableSquare.params = StretchableSquareParams(
-            stretchFactor = 0f,
-            size = stretchableSquareSize,
-            isTop = true,
-            paintColor = android.R.color.holo_blue_light,
-            isDebug = false
-        )
+        stretchableSquare.params = StretchableSquareParams.init()
         stretchableSquare.invalidate()
     }
 

@@ -19,12 +19,7 @@ class StretchableSquare @JvmOverloads constructor(
     private val path = Path()
     private var bounds = StretchableSquareBounds()
 
-    var params: StretchableSquareParams = StretchableSquareParams(
-        stretchFactor = 1f,
-        size = 300,
-        isTop = true,
-        paintColor = android.R.color.holo_blue_light
-    )
+    var params: StretchableSquareParams = StretchableSquareParams.init()
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)

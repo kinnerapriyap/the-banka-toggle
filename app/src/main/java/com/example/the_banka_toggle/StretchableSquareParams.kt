@@ -10,6 +10,19 @@ data class StretchableSquareParams(
     val paintColor: Int,
     var isDebug: Boolean = false
 ) {
+
+    companion object {
+        private const val stretchableSquareSize = 300
+        fun init(): StretchableSquareParams = StretchableSquareParams(
+            stretchFactor = 0f,
+            size = stretchableSquareSize,
+            isTop = true,
+            paintColor = android.R.color.holo_blue_light,
+            scaleForTranslation = 1f,
+            isDebug = false
+        )
+    }
+
     fun shouldInvert() = !isTop && !isDebug
 
     fun getPaintColor(context: Context) = ContextCompat.getColor(context, paintColor)
