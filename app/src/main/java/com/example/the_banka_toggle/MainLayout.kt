@@ -21,6 +21,7 @@ class MainLayout @JvmOverloads constructor(
     private var dragRange = 0
     private var dragOffset = 0f
     private var yCoordinate = 0
+    private var potentiallyAtTop = true
 
     private val viewDragHelper: ViewDragHelper
 
@@ -64,9 +65,14 @@ class MainLayout @JvmOverloads constructor(
     override fun onTouchEvent(event: MotionEvent): Boolean {
         performClick()
         viewDragHelper.processTouchEvent(event)
-        if (event.action == MotionEvent.ACTION_UP) {
-            if (event.y < measuredHeight / 2) smoothSlideToTop()
-            else smoothSlideToBottom()
+        when (event.action) {
+            MotionEvent.ACTION_MOVE -> {
+                potentiallyAtTop = event.y < measuredHeight / 2
+            }
+            MotionEvent.ACTION_UP -> {
+                if (event.y < measuredHeight / 2) smoothSlideToTop()
+                else smoothSlideToBottom()
+            }
         }
         return true
     }
@@ -113,6 +119,10 @@ class MainLayout @JvmOverloads constructor(
         ) {
             yCoordinate = top
             dragOffset = top.toFloat() / dragRange
+            stretchableSquare.paintColor =
+                if (potentiallyAtTop) android.R.color.holo_blue_light
+                else android.R.color.holo_orange_light
+            stretchableSquare.invalidate()
             requestLayout()
         }
 
