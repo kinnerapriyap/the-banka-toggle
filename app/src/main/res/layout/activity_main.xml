@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:paintColor="@android:color/holo_blue_light" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </com.example.the_banka_toggle.MainLayout>

@@ -15,19 +15,12 @@ class StretchableSquare @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-    private var paintColor: Int
     private var defaultPaintColor: Int = ContextCompat.getColor(context, android.R.color.black)
     private val path = Path()
     private var bounds = StretchableSquareBounds()
 
     var params: StretchableSquareParams = StretchableSquareParams(1f, 300, true)
-
-    init {
-        val typedArray =
-            context.obtainStyledAttributes(attrs, R.styleable.StretchableSquare)
-        paintColor = typedArray.getColor(R.styleable.StretchableSquare_paintColor, 0)
-        typedArray.recycle()
-    }
+    var paintColor: Int = android.R.color.holo_blue_light
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
@@ -67,7 +60,8 @@ class StretchableSquare @JvmOverloads constructor(
             style = if (params.isDebug) Paint.Style.STROKE else Paint.Style.FILL
             strokeWidth = 3f
             if (!params.isDebug) setShadowLayer(10f, 0f, 0f, defaultPaintColor)
-            color = if (params.isDebug) defaultPaintColor else paintColor
+            color = if (params.isDebug) defaultPaintColor
+            else ContextCompat.getColor(context, paintColor)
         }
     }
 
