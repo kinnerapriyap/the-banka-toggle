@@ -35,6 +35,7 @@ class MainLayout @JvmOverloads constructor(
             stretchFactor = 0f,
             size = stretchableSquareSize,
             isTop = true,
+            paintColor = android.R.color.holo_blue_light,
             isDebug = false
         )
         stretchableSquare.invalidate()
@@ -119,10 +120,14 @@ class MainLayout @JvmOverloads constructor(
         ) {
             yCoordinate = top
             dragOffset = top.toFloat() / dragRange
-            stretchableSquare.paintColor =
-                if (potentiallyAtTop) android.R.color.holo_blue_light
-                else android.R.color.holo_orange_light
+
+            stretchableSquare.params =
+                stretchableSquare.params.copy(
+                    paintColor = if (potentiallyAtTop) android.R.color.holo_blue_light
+                    else android.R.color.holo_orange_light
+                )
             stretchableSquare.invalidate()
+
             requestLayout()
         }
 

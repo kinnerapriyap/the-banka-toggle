@@ -19,8 +19,12 @@ class StretchableSquare @JvmOverloads constructor(
     private val path = Path()
     private var bounds = StretchableSquareBounds()
 
-    var params: StretchableSquareParams = StretchableSquareParams(1f, 300, true)
-    var paintColor: Int = android.R.color.holo_blue_light
+    var params: StretchableSquareParams = StretchableSquareParams(
+        stretchFactor = 1f,
+        size = 300,
+        isTop = true,
+        paintColor = android.R.color.holo_blue_light
+    )
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
@@ -60,8 +64,7 @@ class StretchableSquare @JvmOverloads constructor(
             style = if (params.isDebug) Paint.Style.STROKE else Paint.Style.FILL
             strokeWidth = 3f
             if (!params.isDebug) setShadowLayer(10f, 0f, 0f, defaultPaintColor)
-            color = if (params.isDebug) defaultPaintColor
-            else ContextCompat.getColor(context, paintColor)
+            color = if (params.isDebug) defaultPaintColor else params.getPaintColor(context)
         }
     }
 
