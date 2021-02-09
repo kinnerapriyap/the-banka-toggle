@@ -3,46 +3,51 @@ package com.example.the_banka_toggle
 import android.graphics.PointF
 
 data class StretchableSquareBounds(
-    val startPosition: Float = 0f,
-    val endPosition: Float = 0f,
+    val startPositionX: Float = 0f,
+    val endPositionX: Float = 0f,
+    val startPositionY: Float = 0f,
+    val endPositionY: Float = 0f,
     val stretchFactor: Float = 1f
 ) {
     private val incrementValue
-        get() = (endPosition - startPosition) / 10
+        get() = (endPositionX - startPositionX) / 10
     private val midLeftPointX
-        get() = startPosition + 4 * incrementValue
+        get() = startPositionX + 4 * incrementValue
     private val midRightPointX
-        get() = startPosition + 6 * incrementValue
+        get() = startPositionX + 6 * incrementValue
     private val controlPointY
-        get() = startPosition + 1 * incrementValue
-    val midPosition
-        get() = (startPosition + endPosition) / 2
+        get() = startPositionY + 1 * incrementValue
+
+    val midPositionX
+        get() = (startPositionX + endPositionX) / 2
+    val midPositionY
+        get() = (startPositionY + endPositionY) / 2
 
     val topLeadingPoint: PointF
-        get() = PointF(startPosition, startPosition)
+        get() = PointF(startPositionX, startPositionY)
     val topTrailingPoint: PointF
-        get() = PointF(endPosition, startPosition)
+        get() = PointF(endPositionX, startPositionY)
     val controlPointToBottomTrailing: PointF
         get() = getPointFByFactor(
-            PointF(endPosition, controlPointY),
+            PointF(endPositionX, controlPointY),
             PointF(midRightPointX, controlPointY),
             stretchFactor
         )
     val bottomTrailingPoint: PointF
         get() = getPointFByFactor(
-            PointF(endPosition, endPosition),
-            PointF(midRightPointX, endPosition),
+            PointF(endPositionX, endPositionY),
+            PointF(midRightPointX, endPositionY),
             stretchFactor
         )
     val bottomLeadingPoint: PointF
         get() = getPointFByFactor(
-            PointF(startPosition, endPosition),
-            PointF(midLeftPointX, endPosition),
+            PointF(startPositionX, endPositionY),
+            PointF(midLeftPointX, endPositionY),
             stretchFactor
         )
     val controlPointToTopLeading: PointF
         get() = getPointFByFactor(
-            PointF(startPosition, controlPointY),
+            PointF(startPositionX, controlPointY),
             PointF(midLeftPointX, controlPointY),
             stretchFactor
         )

@@ -50,15 +50,17 @@ class StretchableSquare @JvmOverloads constructor(
         }
         path.quadTo(bounds.controlPointToTopLeading, bounds.topLeadingPoint)
 
-        if (params.shouldInvert()) canvas.scale(1f, -1f, bounds.midPosition, bounds.midPosition)
+        if (params.shouldInvert()) canvas.scale(1f, -1f, bounds.midPositionX, bounds.midPositionY)
         canvas.drawPath(path, paint)
     }
 
     private fun setup() {
         bounds = bounds.copy(
             stretchFactor = params.stretchFactor,
-            startPosition = 0f,
-            endPosition = params.size.toFloat()
+            startPositionX = 0f,
+            endPositionX = params.getWidth(),
+            startPositionY = 0f,
+            endPositionY = params.getHeight()
         )
         paint.apply {
             style = if (params.isDebug) Paint.Style.STROKE else Paint.Style.FILL
