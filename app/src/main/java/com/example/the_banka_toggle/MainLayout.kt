@@ -123,13 +123,16 @@ class MainLayout @JvmOverloads constructor(
 
             stretchableSquare.params =
                 stretchableSquare.params.copy(
-                    paintColor = if (potentiallyAtTop) android.R.color.holo_blue_light
-                    else android.R.color.holo_orange_light
+                    paintColor = getPaintColor(potentiallyAtTop),
                 )
             stretchableSquare.invalidate()
 
             requestLayout()
         }
+
+        private fun getPaintColor(potentiallyAtTop: Boolean = true): Int =
+            if (potentiallyAtTop) android.R.color.holo_blue_light
+            else android.R.color.holo_orange_light
 
         override fun getViewVerticalDragRange(child: View): Int = dragRange
 
