@@ -59,20 +59,8 @@ class MainLayout @JvmOverloads constructor(
         )
     }
 
-    override fun onInterceptTouchEvent(event: MotionEvent?): Boolean =
-        when {
-            event?.action != MotionEvent.ACTION_DOWN -> {
-                viewDragHelper.cancel()
-                super.onInterceptTouchEvent(event)
-            }
-            event.action == MotionEvent.ACTION_DOWN ->
-                viewDragHelper.isViewUnder(
-                    stretchableSquare,
-                    event.x.toInt(),
-                    event.y.toInt()
-                )
-            else -> viewDragHelper.shouldInterceptTouchEvent(event)
-        }
+    override fun onInterceptTouchEvent(event: MotionEvent): Boolean =
+        viewDragHelper.shouldInterceptTouchEvent(event)
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (event == null) return false
