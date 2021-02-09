@@ -40,7 +40,7 @@ class MainLayout @JvmOverloads constructor(
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        dragRange = height - stretchableSquare.height
+        dragRange = measuredHeight - stretchableSquare.height
         stretchableSquare.layout(
             0,
             yCoordinate,
@@ -117,7 +117,7 @@ class MainLayout @JvmOverloads constructor(
         override fun clampViewPositionVertical(child: View, top: Int, dy: Int): Int =
             when {
                 top < 0 -> 0
-                top > height - stretchableSquare.measuredHeight -> prevTop
+                top > measuredHeight - stretchableSquare.measuredHeight -> prevTop
                 else -> top.apply { prevTop = this }
             }
     }
