@@ -16,7 +16,6 @@ class MainLayout @JvmOverloads constructor(
 
     private val stretchableSquare: StretchableSquare
         get() = findViewById(R.id.stretchable_square)
-    private val stretchableSquareSize = 300
 
     private var dragRange = 0
     private var dragOffset = 0f
