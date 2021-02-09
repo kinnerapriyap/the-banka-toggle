@@ -55,7 +55,8 @@ class MainLayout @JvmOverloads constructor(
     }
 
     override fun onInterceptTouchEvent(event: MotionEvent): Boolean =
-        viewDragHelper.shouldInterceptTouchEvent(event)
+        viewDragHelper.shouldInterceptTouchEvent(event) &&
+                viewDragHelper.isViewUnder(stretchableSquare, event.x.toInt(), event.y.toInt())
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         performClick()
@@ -71,7 +72,7 @@ class MainLayout @JvmOverloads constructor(
                 else smoothSlideToBottom()
             }
         }
-        return true
+        return viewDragHelper.isViewUnder(stretchableSquare, event.x.toInt(), event.y.toInt())
     }
 
     private fun isInTopHalf(event: MotionEvent) = event.y < measuredHeight / 2
