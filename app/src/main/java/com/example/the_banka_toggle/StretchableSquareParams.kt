@@ -13,4 +13,8 @@ data class StretchableSquareParams(
     fun shouldInvert() = !isTop && !isDebug
 
     fun getPaintColor(context: Context) = ContextCompat.getColor(context, paintColor)
+
+    fun getWidth() = size.toFloat()
+
+    fun getHeight() = size * scaleForTranslation
 }
