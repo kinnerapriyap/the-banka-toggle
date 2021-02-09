@@ -10,9 +10,8 @@ data class StretchableSquareParams(
     val paintColor: Int,
     var isDebug: Boolean = false
 ) {
-
     companion object {
-        private const val stretchableSquareSize = 300
+        const val stretchableSquareSize = 300
         fun init(): StretchableSquareParams = StretchableSquareParams(
             stretchFactor = 0f,
             size = stretchableSquareSize,
