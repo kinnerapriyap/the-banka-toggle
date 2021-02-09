@@ -135,10 +135,11 @@ class MainLayout @JvmOverloads constructor(
         override fun getViewVerticalDragRange(child: View): Int = dragRange
 
         private var prevTop = 0
+        // = is used so view at extremes doesn't jump to saved _UP position not equal to current
         override fun clampViewPositionVertical(child: View, top: Int, dy: Int): Int =
             when {
-                top < 0 -> 0
-                top > measuredHeight - stretchableSquare.measuredHeight -> prevTop
+                top <= 0 -> 0
+                top >= dragRange -> prevTop
                 else -> top.apply { prevTop = this }
             }
     }
