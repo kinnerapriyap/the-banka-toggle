@@ -61,10 +61,12 @@ class MainLayout @JvmOverloads constructor(
         performClick()
         viewDragHelper.processTouchEvent(event)
         when (event.action) {
-            MotionEvent.ACTION_MOVE ->
+            MotionEvent.ACTION_MOVE -> {
                 potentiallyAtTop = isInTopHalf(event)
+            }
             MotionEvent.ACTION_UP -> {
                 atTop = isInTopHalf(event)
+                yCoordinate = 0
                 if (atTop) smoothSlideToTop()
                 else smoothSlideToBottom()
             }
