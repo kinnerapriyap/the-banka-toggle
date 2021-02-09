@@ -62,12 +62,11 @@ class MainLayout @JvmOverloads constructor(
     override fun onInterceptTouchEvent(event: MotionEvent): Boolean =
         viewDragHelper.shouldInterceptTouchEvent(event)
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        if (event == null) return false
+    override fun onTouchEvent(event: MotionEvent): Boolean {
         performClick()
         viewDragHelper.processTouchEvent(event)
         if (event.action == MotionEvent.ACTION_UP) smoothSlideToTop()
-        return viewDragHelper.isViewUnder(stretchableSquare, event.x.toInt(), event.y.toInt())
+        return true
     }
 
     override fun performClick(): Boolean {
