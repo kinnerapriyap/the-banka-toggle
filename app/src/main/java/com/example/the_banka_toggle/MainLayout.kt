@@ -113,9 +113,12 @@ class MainLayout @JvmOverloads constructor(
 
         override fun getViewVerticalDragRange(child: View): Int = dragRange
 
-        override fun clampViewPositionVertical(child: View, top: Int, dy: Int): Int {
-            val bottomBound = height - stretchableSquare.height
-            return top.coerceAtMost(bottomBound)
-        }
+        private var prevTop = 0
+        override fun clampViewPositionVertical(child: View, top: Int, dy: Int): Int =
+            when {
+                top < 0 -> 0
+                top > height - stretchableSquare.measuredHeight -> prevTop
+                else -> top.apply { prevTop = this }
+            }
     }
 }
