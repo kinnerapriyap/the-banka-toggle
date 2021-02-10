@@ -26,7 +26,10 @@ class MainLayout @JvmOverloads constructor(
     private var yCoordinate = 0
     private val stickyThreshold
         get() = measuredHeight / 3
-
+    private val scaleForTranslation: Float
+        get() =
+            if (stuck) 1f + absTranslation / StretchableSquareParams.stretchableSquareSize
+            else 1f
     private val dragRange
         get() = measuredHeight - StretchableSquareParams.stretchableSquareSize
     private var dragOffset = 0f
