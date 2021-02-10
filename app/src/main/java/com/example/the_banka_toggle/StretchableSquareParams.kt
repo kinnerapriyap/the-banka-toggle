@@ -8,6 +8,7 @@ data class StretchableSquareParams(
     var size: Int,
     var isTop: Boolean,
     val paintColor: Int,
+    val scaleForTranslation: Float,
     var isDebug: Boolean = false
 ) {
     companion object {

@@ -66,5 +66,5 @@ class StretchableSquare @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) =
-        setMeasuredDimension(params.size, params.size)
+        setMeasuredDimension(params.getWidth().toInt(), params.getHeight().toInt())
 }
