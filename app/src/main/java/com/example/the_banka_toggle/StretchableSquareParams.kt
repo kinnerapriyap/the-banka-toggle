@@ -27,7 +27,7 @@ data class StretchableSquareParams(
 
     fun getPaintColor(context: Context) = ContextCompat.getColor(context, paintColor)
 
-    fun getWidth() = size.toFloat()
+    fun getWidth() = size
 
-    fun getHeight() = size * scaleForTranslation
+    fun getHeight() = (size * scaleForTranslation).toInt()
 }

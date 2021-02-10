@@ -53,9 +53,9 @@ class StretchableSquare @JvmOverloads constructor(
         bounds = bounds.copy(
             stretchFactor = params.stretchFactor,
             startPositionX = 0f,
-            endPositionX = params.getWidth(),
+            endPositionX = measuredWidth.toFloat(),
             startPositionY = 0f,
-            endPositionY = params.getHeight()
+            endPositionY = measuredHeight.toFloat()
         )
         paint.apply {
             style = if (params.isDebug) Paint.Style.STROKE else Paint.Style.FILL
@@ -66,5 +66,5 @@ class StretchableSquare @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) =
-        setMeasuredDimension(params.getWidth().toInt(), params.getHeight().toInt())
+        setMeasuredDimension(params.getWidth(), params.getHeight())
 }
