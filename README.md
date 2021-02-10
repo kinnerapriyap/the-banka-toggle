@@ -4,4 +4,4 @@ This Android implementation is inspired by the iOS version of [@CodeSlice](https
 
 ## Current-ish sticky status
 
-![Uff the latest bouncy](uff_bouncy_latest.gif =300x)
+<img alt="Uff the latest bouncy" src="uff_bouncy_latest.gif" width="300"/>
