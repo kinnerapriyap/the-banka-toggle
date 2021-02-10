@@ -22,6 +22,7 @@ class MainLayout @JvmOverloads constructor(
     private var potentiallyAtTop = true
     private var atTop = true
     private var stuck = true
+    private var justUnstuckFromTop = false
 
     // dp
     private var yCoordinate = 0
@@ -86,7 +87,10 @@ class MainLayout @JvmOverloads constructor(
                 yTranslation =
                     if (potentiallyAtTop) event.y
                     else event.y - measuredHeight
-                if (stuck) stuck = absTranslation < stickyThreshold
+                if (stuck) {
+                    stuck = absTranslation < stickyThreshold
+                    justUnstuckFromTop = !stuck && potentiallyAtTop
+                }
             }
             MotionEvent.ACTION_UP -> {
                 atTop = isInTopHalf(event)
@@ -142,6 +146,10 @@ class MainLayout @JvmOverloads constructor(
             dy: Int
         ) {
             yCoordinate = top
+            if (justUnstuckFromTop) {
+                yCoordinate = yTranslation.toInt()
+                justUnstuckFromTop = false
+            }
             updateStretchableSquareView(scaleForTranslation)
         }
 
