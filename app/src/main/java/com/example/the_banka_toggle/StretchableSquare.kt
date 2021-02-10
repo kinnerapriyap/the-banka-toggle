@@ -24,6 +24,7 @@ class StretchableSquare @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas ?: return
+        path.rewind()
         setup()
 
         path.moveTo(bounds.topLeadingPoint)
