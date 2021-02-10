@@ -20,7 +20,6 @@ class MainLayout @JvmOverloads constructor(
         get() = findViewById(R.id.stretchable_square)
 
     private var potentiallyAtTop = true
-    private var atTop = true
     private var stuck = true
     private var justUnstuckFromTop = false
 
@@ -93,11 +92,9 @@ class MainLayout @JvmOverloads constructor(
                 }
             }
             MotionEvent.ACTION_UP -> {
-                atTop = isInTopHalf(event)
+                potentiallyAtTop = isInTopHalf(event)
                 yTranslation = 0f
                 stuck = true
-                if (atTop) smoothSlideToTop()
-                else smoothSlideToBottom()
             }
         }
         return viewDragHelper.isViewUnder(stretchableSquare, event.x.toInt(), event.y.toInt())
@@ -156,7 +153,8 @@ class MainLayout @JvmOverloads constructor(
         override fun onViewReleased(releasedChild: View, xvel: Float, yvel: Float) {
             super.onViewReleased(releasedChild, xvel, yvel)
             updateStretchableSquareView(1f)
-            postInvalidateOnAnimation()
+            if (potentiallyAtTop) smoothSlideToTop()
+            else smoothSlideToBottom()
         }
 
         private fun updateStretchableSquareView(scale: Float) {
