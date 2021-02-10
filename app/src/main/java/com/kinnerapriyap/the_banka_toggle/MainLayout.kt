@@ -113,23 +113,6 @@ class MainLayout @JvmOverloads constructor(
         }
     }
 
-    private fun smoothSlideToTop(): Boolean = smoothSlideTo(0f)
-
-    private fun smoothSlideToBottom(): Boolean = smoothSlideTo(1f)
-
-    private fun smoothSlideTo(slideOffset: Float): Boolean {
-        if (viewDragHelper.smoothSlideViewTo(
-                stretchableSquare,
-                0,
-                (slideOffset * dragRange).toInt()
-            )
-        ) {
-            ViewCompat.postInvalidateOnAnimation(this)
-            return true
-        }
-        return false
-    }
-
     inner class VerticalOnlyViewDragHelper : ViewDragHelper.Callback() {
 
         override fun tryCaptureView(child: View, pointerId: Int): Boolean =
@@ -155,6 +138,23 @@ class MainLayout @JvmOverloads constructor(
             updateStretchableSquareView(1f)
             if (potentiallyAtTop) smoothSlideToTop()
             else smoothSlideToBottom()
+        }
+
+        private fun smoothSlideToTop(): Boolean = smoothSlideTo(0f)
+
+        private fun smoothSlideToBottom(): Boolean = smoothSlideTo(1f)
+
+        private fun smoothSlideTo(slideOffset: Float): Boolean {
+            if (viewDragHelper.smoothSlideViewTo(
+                    stretchableSquare,
+                    0,
+                    (slideOffset * dragRange).toInt()
+                )
+            ) {
+                postInvalidateOnAnimation()
+                return true
+            }
+            return false
         }
 
         private fun updateStretchableSquareView(scale: Float) {
