@@ -9,14 +9,16 @@ data class StretchableSquareBounds(
     val endPositionY: Float = 0f,
     val stretchFactor: Float = 1f
 ) {
-    private val incrementValue
+    private val incrementValueX
         get() = (endPositionX - startPositionX) / 10
+    private val incrementValueY
+        get() = (endPositionY - startPositionY) / 10
     private val midLeftPointX
-        get() = startPositionX + 4 * incrementValue
+        get() = startPositionX + 4 * incrementValueX
     private val midRightPointX
-        get() = startPositionX + 6 * incrementValue
+        get() = startPositionX + 6 * incrementValueX
     private val controlPointY
-        get() = startPositionY + 1 * incrementValue
+        get() = startPositionY + 1 * incrementValueY
 
     val midPositionX
         get() = (startPositionX + endPositionX) / 2
