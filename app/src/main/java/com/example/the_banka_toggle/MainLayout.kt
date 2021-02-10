@@ -7,6 +7,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.customview.widget.ViewDragHelper
+import com.example.the_banka_toggle.StretchableSquareParams.Companion.stretchableSquareSize
 import kotlin.math.abs
 
 class MainLayout @JvmOverloads constructor(
@@ -25,13 +26,15 @@ class MainLayout @JvmOverloads constructor(
     // dp
     private var yCoordinate = 0
     private val stickyThreshold
-        get() = measuredHeight / 3
+        get() =
+            if (potentiallyAtTop) measuredHeight / 3 - stretchableSquareSize / 2
+            else measuredHeight / 3 + stretchableSquareSize / 2
     private val scaleForTranslation: Float
         get() =
-            if (stuck) 1f + absTranslation / StretchableSquareParams.stretchableSquareSize
+            if (stuck) 1f + absTranslation / stretchableSquareSize
             else 1f
     private val dragRange
-        get() = measuredHeight - StretchableSquareParams.stretchableSquareSize
+        get() = measuredHeight - stretchableSquareSize
 
     // px
     private var yTranslation = 0f
