@@ -62,9 +62,16 @@ class StretchableSquare @JvmOverloads constructor(
             style = if (params.isDebug) Paint.Style.STROKE else Paint.Style.FILL
             strokeWidth = 3f
             if (!params.isDebug) setShadowLayer(10f, 0f, 0f, defaultPaintColor)
-            color = if (params.isDebug) defaultPaintColor else params.getPaintColor(context)
+            color = if (params.isDebug) defaultPaintColor else getPaintColor(params.atTop)
         }
     }
+
+    private fun getPaintColor(potentiallyAtTop: Boolean = true): Int =
+        ContextCompat.getColor(
+            context,
+            if (potentiallyAtTop) android.R.color.holo_blue_light
+            else android.R.color.holo_orange_light
+        )
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) =
         setMeasuredDimension(params.getWidth(), params.getHeight())
