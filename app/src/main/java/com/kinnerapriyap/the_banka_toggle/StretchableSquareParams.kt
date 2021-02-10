@@ -11,6 +11,7 @@ data class StretchableSquareParams(
 ) {
     companion object {
         const val stretchableSquareSize = 300
+        const val debugPaintColor: Int = Color.BLACK
         val defaultPaintColorTop = Color.parseColor("#ff33b5e5")
         val defaultPaintColorBottom = Color.parseColor("#ffffbb33")
         fun init(): StretchableSquareParams = StretchableSquareParams(

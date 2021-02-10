@@ -6,7 +6,9 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
-import androidx.core.content.ContextCompat
+import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.defaultPaintColorTop
+import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.defaultPaintColorBottom
+import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.debugPaintColor
 
 class StretchableSquare @JvmOverloads constructor(
     context: Context,
@@ -15,11 +17,26 @@ class StretchableSquare @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-    private var defaultPaintColor: Int = ContextCompat.getColor(context, android.R.color.black)
     private val path = Path()
     private var bounds = StretchableSquareBounds()
 
     var params: StretchableSquareParams = StretchableSquareParams.init()
+    private val paintColorPair: Pair<Int, Int>
+
+    init {
+        val typedArray =
+            context.obtainStyledAttributes(attrs, R.styleable.StretchableSquare)
+        paintColorPair =
+            typedArray.getColor(
+                R.styleable.StretchableSquare_paintColorTop,
+                defaultPaintColorTop
+            ) to
+                    typedArray.getColor(
+                        R.styleable.StretchableSquare_paintColorBottom,
+                        defaultPaintColorBottom
+                    )
+        typedArray.recycle()
+    }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
@@ -61,17 +78,14 @@ class StretchableSquare @JvmOverloads constructor(
         paint.apply {
             style = if (params.isDebug) Paint.Style.STROKE else Paint.Style.FILL
             strokeWidth = 3f
-            if (!params.isDebug) setShadowLayer(10f, 0f, 0f, defaultPaintColor)
-            color = if (params.isDebug) defaultPaintColor else getPaintColor(params.atTop)
+            if (!params.isDebug) setShadowLayer(10f, 0f, 0f, debugPaintColor)
+            color = when {
+                params.isDebug -> debugPaintColor
+                params.atTop -> paintColorPair.first
+                else -> paintColorPair.second
+            }
         }
     }
-
-    private fun getPaintColor(potentiallyAtTop: Boolean = true): Int =
-        ContextCompat.getColor(
-            context,
-            if (potentiallyAtTop) android.R.color.holo_blue_light
-            else android.R.color.holo_orange_light
-        )
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) =
         setMeasuredDimension(params.getWidth(), params.getHeight())
