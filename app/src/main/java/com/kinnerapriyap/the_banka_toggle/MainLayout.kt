@@ -130,12 +130,12 @@ class MainLayout @JvmOverloads constructor(
                 yCoordinate = yTranslation.toInt()
                 justUnstuckFromTop = false
             }
-            updateStretchableSquareView(scaleForTranslation)
+            updateStretchableSquareView(stretchFactor, scaleForTranslation)
         }
 
         override fun onViewReleased(releasedChild: View, xvel: Float, yvel: Float) {
             super.onViewReleased(releasedChild, xvel, yvel)
-            updateStretchableSquareView(1f)
+            updateStretchableSquareView(stretchFactor = 0f, scale = 1f)
             if (potentiallyAtTop) smoothSlideToTop()
             else smoothSlideToBottom()
         }
@@ -157,7 +157,7 @@ class MainLayout @JvmOverloads constructor(
             return false
         }
 
-        private fun updateStretchableSquareView(scale: Float) {
+        private fun updateStretchableSquareView(stretchFactor: Float, scale: Float) {
             stretchableSquare.params =
                 stretchableSquare.params.copy(
                     stretchFactor = stretchFactor,
