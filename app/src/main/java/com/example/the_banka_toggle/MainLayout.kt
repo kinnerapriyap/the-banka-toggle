@@ -36,6 +36,13 @@ class MainLayout @JvmOverloads constructor(
     private val dragRange
         get() = measuredHeight - stretchableSquareSize
 
+    private val topInLayout: Int
+        get() = if (stuck && potentiallyAtTop) 0 else yCoordinate
+    private val bottomInLayout: Int
+        get() =
+            if (stuck && potentiallyAtTop) stretchableSquare.measuredHeight
+            else yCoordinate + stretchableSquare.measuredHeight
+
     // px
     private var yTranslation = 0f
     private val absTranslation
@@ -54,12 +61,7 @@ class MainLayout @JvmOverloads constructor(
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        stretchableSquare.layout(
-            0,
-            yCoordinate,
-            right,
-            yCoordinate + stretchableSquare.measuredHeight
-        )
+        stretchableSquare.layout(0, topInLayout, right, bottomInLayout)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
