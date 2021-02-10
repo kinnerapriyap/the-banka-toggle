@@ -32,7 +32,6 @@ class MainLayout @JvmOverloads constructor(
             else 1f
     private val dragRange
         get() = measuredHeight - StretchableSquareParams.stretchableSquareSize
-    private var dragOffset = 0f
 
     // px
     private var yTranslation = 0f
@@ -138,7 +137,6 @@ class MainLayout @JvmOverloads constructor(
             dy: Int
         ) {
             yCoordinate = top
-            dragOffset = top.toFloat() / dragRange
             updateStretchableSquareView(scaleForTranslation)
         }
 
