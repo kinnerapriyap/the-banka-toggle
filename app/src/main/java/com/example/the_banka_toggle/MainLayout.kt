@@ -31,9 +31,9 @@ class MainLayout @JvmOverloads constructor(
             if (potentiallyAtTop) measuredHeight / 3 - stretchableSquareSize / 2
             else measuredHeight / 3 + stretchableSquareSize / 2
     private val scaleForTranslation: Float
-        get() =
-            if (stuck) 1f + absTranslation / stretchableSquareSize
-            else 1f
+        get() = if (stuck) 1f + absTranslation / stretchableSquareSize else 1f
+    private val stretchFactor
+        get() = if (stuck) absTranslation / stickyThreshold else 0f
     private val dragRange
         get() = measuredHeight - stretchableSquareSize
 
@@ -162,6 +162,8 @@ class MainLayout @JvmOverloads constructor(
         private fun updateStretchableSquareView(scale: Float) {
             stretchableSquare.params =
                 stretchableSquare.params.copy(
+                    stretchFactor = stretchFactor,
+                    isTop = atTop,
                     paintColor = getPaintColor(potentiallyAtTop),
                     scaleForTranslation = scale,
                 )
