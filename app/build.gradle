@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.the_banka_toggle"
+        applicationId "com.kinnerapriyap.the_banka_toggle"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1

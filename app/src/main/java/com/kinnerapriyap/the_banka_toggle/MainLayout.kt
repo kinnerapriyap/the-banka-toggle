@@ -1,4 +1,4 @@
-package com.example.the_banka_toggle
+package com.kinnerapriyap.the_banka_toggle
 
 import android.content.Context
 import android.util.AttributeSet
@@ -7,7 +7,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.customview.widget.ViewDragHelper
-import com.example.the_banka_toggle.StretchableSquareParams.Companion.stretchableSquareSize
+import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.stretchableSquareSize
 import kotlin.math.abs
 
 class MainLayout @JvmOverloads constructor(

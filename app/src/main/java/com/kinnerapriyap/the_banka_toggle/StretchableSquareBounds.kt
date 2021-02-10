@@ -1,4 +1,4 @@
-package com.example.the_banka_toggle
+package com.kinnerapriyap.the_banka_toggle
 
 import android.graphics.PointF
 

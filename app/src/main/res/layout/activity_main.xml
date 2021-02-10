@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.the_banka_toggle.MainLayout
+    <com.kinnerapriyap.the_banka_toggle.MainLayout
         android:id="@+id/root"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".MainActivity">
 
-        <com.example.the_banka_toggle.StretchableSquare
+        <com.kinnerapriyap.the_banka_toggle.StretchableSquare
             android:id="@+id/stretchable_square"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </com.example.the_banka_toggle.MainLayout>
+    </com.kinnerapriyap.the_banka_toggle.MainLayout>
 
     <View
         android:layout_width="match_parent"
