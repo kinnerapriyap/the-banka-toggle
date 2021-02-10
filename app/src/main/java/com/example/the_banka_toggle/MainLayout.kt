@@ -154,7 +154,7 @@ class MainLayout @JvmOverloads constructor(
         private fun updateStretchableSquareView(scale: Float) {
             stretchableSquare.params =
                 stretchableSquare.params.copy(
-                    paintColor = getPaintColor(atTop),
+                    paintColor = getPaintColor(potentiallyAtTop),
                     scaleForTranslation = scale,
                 )
             stretchableSquare.invalidate()
