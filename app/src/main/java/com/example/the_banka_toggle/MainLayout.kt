@@ -163,7 +163,7 @@ class MainLayout @JvmOverloads constructor(
             stretchableSquare.params =
                 stretchableSquare.params.copy(
                     stretchFactor = stretchFactor,
-                    isTop = atTop,
+                    atTop = atTop,
                     paintColor = getPaintColor(potentiallyAtTop),
                     scaleForTranslation = scale,
                 )
