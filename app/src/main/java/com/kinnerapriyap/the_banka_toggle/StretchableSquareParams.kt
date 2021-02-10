@@ -1,5 +1,7 @@
 package com.kinnerapriyap.the_banka_toggle
 
+import android.graphics.Color
+
 data class StretchableSquareParams(
     var stretchFactor: Float,
     var size: Int,
@@ -9,6 +11,8 @@ data class StretchableSquareParams(
 ) {
     companion object {
         const val stretchableSquareSize = 300
+        val defaultPaintColorTop = Color.parseColor("#ff33b5e5")
+        val defaultPaintColorBottom = Color.parseColor("#ffffbb33")
         fun init(): StretchableSquareParams = StretchableSquareParams(
             stretchFactor = 0f,
             size = stretchableSquareSize,
