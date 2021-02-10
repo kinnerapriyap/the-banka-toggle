@@ -3,5 +3,6 @@
     <declare-styleable name="StretchableSquare">
         <attr name="paintColorTop" format="color" />
         <attr name="paintColorBottom" format="color" />
+        <attr name="size" format="integer" />
     </declare-styleable>
 </resources>

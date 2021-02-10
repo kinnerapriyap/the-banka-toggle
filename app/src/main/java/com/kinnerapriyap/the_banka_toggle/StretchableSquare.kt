@@ -9,6 +9,7 @@ import android.view.View
 import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.defaultPaintColorTop
 import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.defaultPaintColorBottom
 import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.debugPaintColor
+import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.stretchableSquareSize
 
 class StretchableSquare @JvmOverloads constructor(
     context: Context,
@@ -22,6 +23,7 @@ class StretchableSquare @JvmOverloads constructor(
 
     var params: StretchableSquareParams = StretchableSquareParams.init()
     private val paintColorPair: Pair<Int, Int>
+    val size: Int
 
     init {
         val typedArray =
@@ -35,6 +37,7 @@ class StretchableSquare @JvmOverloads constructor(
                         R.styleable.StretchableSquare_paintColorBottom,
                         defaultPaintColorBottom
                     )
+        size = typedArray.getInt(R.styleable.StretchableSquare_size, stretchableSquareSize)
         typedArray.recycle()
     }
 
@@ -88,5 +91,5 @@ class StretchableSquare @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) =
-        setMeasuredDimension(params.getWidth(), params.getHeight())
+        setMeasuredDimension(size, (size * params.scaleForTranslation).toInt())
 }
