@@ -139,19 +139,24 @@ class MainLayout @JvmOverloads constructor(
         ) {
             yCoordinate = top
             dragOffset = top.toFloat() / dragRange
-
-            stretchableSquare.params =
-                stretchableSquare.params.copy(
-                    paintColor = getPaintColor(potentiallyAtTop),
-                )
-            stretchableSquare.invalidate()
-
-            requestLayout()
+            updateStretchableSquareView(scaleForTranslation)
         }
 
         override fun onViewReleased(releasedChild: View, xvel: Float, yvel: Float) {
             super.onViewReleased(releasedChild, xvel, yvel)
-            yCoordinate = 0
+            updateStretchableSquareView(1f)
+            postInvalidateOnAnimation()
+        }
+
+        private fun updateStretchableSquareView(scale: Float) {
+            stretchableSquare.params =
+                stretchableSquare.params.copy(
+                    paintColor = getPaintColor(atTop),
+                    scaleForTranslation = scale,
+                )
+            stretchableSquare.invalidate()
+            stretchableSquare.requestLayout()
+            requestLayout()
         }
 
         private fun getPaintColor(potentiallyAtTop: Boolean = true): Int =
