@@ -7,6 +7,8 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.customview.widget.ViewDragHelper
+import androidx.dynamicanimation.animation.DynamicAnimation
+import androidx.dynamicanimation.animation.SpringAnimation
 import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.stretchableSquareSize
 import kotlin.math.abs
 
@@ -136,25 +138,15 @@ class MainLayout @JvmOverloads constructor(
         override fun onViewReleased(releasedChild: View, xvel: Float, yvel: Float) {
             super.onViewReleased(releasedChild, xvel, yvel)
             updateStretchableSquareView(stretchFactor = 0f, scale = 1f)
-            if (potentiallyAtTop) smoothSlideToTop()
-            else smoothSlideToBottom()
-        }
 
-        private fun smoothSlideToTop(): Boolean = smoothSlideTo(0f)
-
-        private fun smoothSlideToBottom(): Boolean = smoothSlideTo(1f)
-
-        private fun smoothSlideTo(slideOffset: Float): Boolean {
-            if (viewDragHelper.smoothSlideViewTo(
-                    stretchableSquare,
-                    0,
-                    (slideOffset * dragRange).toInt()
-                )
-            ) {
-                postInvalidateOnAnimation()
-                return true
+            val finalPosition = if (potentiallyAtTop) 0 else dragRange
+            SpringAnimation(stretchableSquare, DynamicAnimation.Y, finalPosition.toFloat()).apply {
+                setStartVelocity(yvel)
+                spring.dampingRatio = 0.4f
+                start()
             }
-            return false
+            viewDragHelper.settleCapturedViewAt(0, finalPosition)
+            postInvalidateOnAnimation()
         }
 
         private fun updateStretchableSquareView(stretchFactor: Float, scale: Float) {
