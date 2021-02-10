@@ -28,7 +28,7 @@ class MainLayout @JvmOverloads constructor(
     private var yCoordinate = 0
     private val stickyThreshold
         get() =
-            if (potentiallyAtTop) measuredHeight / 3 - stretchableSquareSize / 2
+            if (potentiallyAtTop) measuredHeight / 3
             else measuredHeight / 3 + stretchableSquareSize / 2
     private val scaleForTranslation: Float
         get() = if (stuck) 1f + absTranslation / stretchableSquareSize else 1f
