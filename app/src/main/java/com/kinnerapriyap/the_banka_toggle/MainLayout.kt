@@ -8,6 +8,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewOutlineProvider
 import android.view.animation.DecelerateInterpolator
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
@@ -65,6 +66,8 @@ class MainLayout @JvmOverloads constructor(
 
     override fun onFinishInflate() {
         super.onFinishInflate()
+        outlineProvider = ViewOutlineProvider.BACKGROUND
+        clipToOutline = true
         stretchableSquare.params = StretchableSquareParams.init()
         stretchableSquare.invalidate()
     }
