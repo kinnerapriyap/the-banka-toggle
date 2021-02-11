@@ -213,7 +213,6 @@ class MainLayout @JvmOverloads constructor(
                 )
             stretchableSquare.invalidate()
             stretchableSquare.requestLayout()
-            requestLayout()
         }
 
         override fun getViewVerticalDragRange(child: View): Int = dragRange
