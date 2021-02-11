@@ -25,10 +25,12 @@ class StretchableSquare @JvmOverloads constructor(
     private val paintColorPair: Pair<Int, Int>
     val size: Int
 
+    @Suppress("unused")
     fun setStretchFactor(stretchFactor: Float) {
         params = params.copy(stretchFactor = stretchFactor)
     }
 
+    @Suppress("unused")
     fun setScaleForTranslation(scaleForTranslation: Float) {
         params = params.copy(scaleForTranslation = scaleForTranslation)
         invalidate()
