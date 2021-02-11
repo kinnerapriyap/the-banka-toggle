@@ -4,5 +4,6 @@
         <attr name="paintColorTop" format="color" />
         <attr name="paintColorBottom" format="color" />
         <attr name="size" format="integer" />
+        <attr name="shadowRadius" format="float" />
     </declare-styleable>
 </resources>
