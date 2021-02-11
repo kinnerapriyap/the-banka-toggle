@@ -22,7 +22,7 @@ class MainLayout @JvmOverloads constructor(
 
     private var potentiallyAtTop = true
     private var stuck = true
-    private var justUnstuckFromTop = false
+    private var justUnstuck = false
 
     // dp
     private var yCoordinate = 0
@@ -31,9 +31,12 @@ class MainLayout @JvmOverloads constructor(
             if (potentiallyAtTop) measuredHeight / 3
             else measuredHeight / 3 + stretchableSquare.size / 2
     private val scaleForTranslation: Float
-        get() = if (stuck) 1f + absTranslation / stretchableSquare.size else 1f
+        get() =
+            if (stuck || justUnstuck)
+                1f + absTranslation / stretchableSquare.size
+            else 1f
     private val stretchFactor
-        get() = if (stuck) absTranslation / stickyThreshold else 0f
+        get() = if (stuck || justUnstuck) absTranslation / stickyThreshold else 0f
     private val dragRange
         get() = measuredHeight - stretchableSquare.size
 
