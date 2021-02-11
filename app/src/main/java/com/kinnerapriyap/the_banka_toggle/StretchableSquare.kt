@@ -9,7 +9,7 @@ import android.view.View
 import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.defaultPaintColorTop
 import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.defaultPaintColorBottom
 import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.debugPaintColor
-import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.stretchableSquareSize
+import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.defaultSize
 
 class StretchableSquare @JvmOverloads constructor(
     context: Context,
@@ -37,7 +37,7 @@ class StretchableSquare @JvmOverloads constructor(
                         R.styleable.StretchableSquare_paintColorBottom,
                         defaultPaintColorBottom
                     )
-        size = typedArray.getInt(R.styleable.StretchableSquare_size, stretchableSquareSize)
+        size = typedArray.getInt(R.styleable.StretchableSquare_size, defaultSize)
         typedArray.recycle()
     }
 
