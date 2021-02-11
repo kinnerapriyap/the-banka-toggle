@@ -25,6 +25,16 @@ class StretchableSquare @JvmOverloads constructor(
     private val paintColorPair: Pair<Int, Int>
     val size: Int
 
+    fun setStretchFactor(stretchFactor: Float) {
+        params = params.copy(stretchFactor = stretchFactor)
+    }
+
+    fun setScaleForTranslation(scaleForTranslation: Float) {
+        params = params.copy(scaleForTranslation = scaleForTranslation)
+        invalidate()
+        requestLayout()
+    }
+
     init {
         val typedArray =
             context.obtainStyledAttributes(attrs, R.styleable.StretchableSquare)
