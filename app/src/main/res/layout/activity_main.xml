@@ -8,7 +8,7 @@
     android:layout_gravity="center"
     android:background="@drawable/capsule_bg"
     android:foreground="@drawable/capsule_outline"
-    android:paddingHorizontal="1dp"
+    android:paddingHorizontal="1.5dp"
     tools:context=".MainActivity">
 
     <com.kinnerapriyap.the_banka_toggle.StretchableSquare
