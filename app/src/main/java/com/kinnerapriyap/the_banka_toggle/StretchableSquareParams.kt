@@ -10,6 +10,7 @@ data class StretchableSquareParams(
 ) {
     companion object {
         const val defaultSize = 300
+        const val defaultShadowRadius = 10f
         const val debugPaintColor: Int = Color.BLACK
         val defaultPaintColorTop = Color.parseColor("#ff33b5e5")
         val defaultPaintColorBottom = Color.parseColor("#ffffbb33")
