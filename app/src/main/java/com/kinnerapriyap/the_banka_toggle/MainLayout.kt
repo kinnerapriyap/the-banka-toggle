@@ -97,7 +97,7 @@ class MainLayout @JvmOverloads constructor(
                     else event.y - measuredHeight
                 if (stuck) {
                     stuck = absTranslation < stickyThreshold
-                    justUnstuckFromTop = !stuck && potentiallyAtTop
+                    justUnstuck = !stuck
                 }
             }
             MotionEvent.ACTION_UP -> {
@@ -135,11 +135,14 @@ class MainLayout @JvmOverloads constructor(
             dy: Int
         ) {
             yCoordinate = top
-            if (justUnstuckFromTop) {
-                yCoordinate = yTranslation.toInt()
-                justUnstuckFromTop = false
+            when {
+                justUnstuck -> {
+                    springBack(top)
+                    justUnstuck = false
+                }
+                isAnimating -> return
+                else -> updateStretchableSquareView(stretchFactor, scaleForTranslation)
             }
-            updateStretchableSquareView(stretchFactor, scaleForTranslation)
         }
 
         var isAnimating = false
