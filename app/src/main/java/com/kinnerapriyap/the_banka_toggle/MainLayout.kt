@@ -1,9 +1,14 @@
 package com.kinnerapriyap.the_banka_toggle
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.view.animation.DecelerateInterpolator
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.customview.widget.ViewDragHelper
@@ -135,6 +140,51 @@ class MainLayout @JvmOverloads constructor(
                 justUnstuckFromTop = false
             }
             updateStretchableSquareView(stretchFactor, scaleForTranslation)
+        }
+
+        var isAnimating = false
+
+        private fun springBack(top: Int) {
+            isAnimating = true
+            val startPosition = if (potentiallyAtTop) 0f else dragRange.toFloat()
+            val finalPosition =
+                if (potentiallyAtTop) stickyThreshold
+                else stickyThreshold + stretchableSquare.size / 3
+            AnimatorSet().apply {
+                play(
+                    ObjectAnimator.ofFloat(
+                        stretchableSquare,
+                        View.Y,
+                        startPosition,
+                        finalPosition.toFloat()
+                    )
+                ).apply {
+                    with(
+                        ObjectAnimator.ofFloat(
+                            stretchableSquare,
+                            "stretchFactor",
+                            stretchFactor,
+                            0f
+                        )
+                    )
+                    with(
+                        ObjectAnimator.ofFloat(
+                            stretchableSquare,
+                            "scaleForTranslation",
+                            scaleForTranslation,
+                            1f
+                        )
+                    )
+                }
+                duration = 200
+                interpolator = DecelerateInterpolator()
+                addListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        isAnimating = false
+                    }
+                })
+                start()
+            }
         }
 
         override fun onViewReleased(releasedChild: View, xvel: Float, yvel: Float) {
