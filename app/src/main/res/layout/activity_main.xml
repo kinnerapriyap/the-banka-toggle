@@ -16,6 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:paintColorBottom="@android:color/holo_orange_light"
-        app:paintColorTop="@android:color/holo_green_light" />
+        app:paintColorTop="@android:color/holo_green_light"
+        app:shadowRadius="10f"
+        app:size="300" />
 
 </com.kinnerapriyap.the_banka_toggle.MainLayout>
