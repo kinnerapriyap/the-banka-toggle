@@ -43,7 +43,7 @@ class MainLayout @JvmOverloads constructor(
     private val stretchFactor
         get() = if (stuck || justUnstuck) absTranslation / stickyThreshold else 0f
     private val dragRange
-        get() = measuredHeight - stretchableSquare.size
+        get() = measuredHeight - stretchableSquare.size - stretchableSquare.shadowRadius.toInt()
 
     private val topInLayout: Int
         get() = if (stuck && potentiallyAtTop) 0 else yCoordinate
@@ -80,6 +80,10 @@ class MainLayout @JvmOverloads constructor(
             stretchableSquare.measuredWidth,
             resolveSizeAndState(maxHeight, heightMeasureSpec, 0)
         )
+
+        val params = layoutParams as MarginLayoutParams
+        params.topMargin = stretchableSquare.shadowRadius.toInt() * -1
+        layoutParams = params
     }
 
     override fun onInterceptTouchEvent(event: MotionEvent): Boolean =
