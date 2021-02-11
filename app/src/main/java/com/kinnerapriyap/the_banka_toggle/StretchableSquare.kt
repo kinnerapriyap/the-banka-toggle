@@ -9,6 +9,7 @@ import android.view.View
 import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.defaultPaintColorTop
 import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.defaultPaintColorBottom
 import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.debugPaintColor
+import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.defaultShadowRadius
 import com.kinnerapriyap.the_banka_toggle.StretchableSquareParams.Companion.defaultSize
 
 class StretchableSquare @JvmOverloads constructor(
@@ -24,6 +25,7 @@ class StretchableSquare @JvmOverloads constructor(
     var params: StretchableSquareParams = StretchableSquareParams.init()
     private val paintColorPair: Pair<Int, Int>
     val size: Int
+    val shadowRadius: Float
 
     @Suppress("unused")
     fun setStretchFactor(stretchFactor: Float) {
@@ -50,6 +52,8 @@ class StretchableSquare @JvmOverloads constructor(
                         defaultPaintColorBottom
                     )
         size = typedArray.getInt(R.styleable.StretchableSquare_size, defaultSize)
+        shadowRadius =
+            typedArray.getFloat(R.styleable.StretchableSquare_shadowRadius, defaultShadowRadius)
         typedArray.recycle()
     }
 
@@ -85,15 +89,15 @@ class StretchableSquare @JvmOverloads constructor(
     private fun setup() {
         bounds = bounds.copy(
             stretchFactor = params.stretchFactor,
-            startPositionX = 0f,
-            endPositionX = measuredWidth.toFloat(),
-            startPositionY = 0f,
-            endPositionY = measuredHeight.toFloat()
+            startPositionX = shadowRadius,
+            endPositionX = measuredWidth.toFloat() - shadowRadius,
+            startPositionY = shadowRadius,
+            endPositionY = measuredHeight.toFloat() - shadowRadius
         )
         paint.apply {
             style = if (params.isDebug) Paint.Style.STROKE else Paint.Style.FILL
             strokeWidth = 3f
-            if (!params.isDebug) setShadowLayer(10f, 0f, 0f, debugPaintColor)
+            if (!params.isDebug) setShadowLayer(shadowRadius, 0f, 0f, debugPaintColor)
             color = when {
                 params.isDebug -> debugPaintColor
                 params.atTop -> paintColorPair.first
@@ -103,5 +107,8 @@ class StretchableSquare @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) =
-        setMeasuredDimension(size, (size * params.scaleForTranslation).toInt())
+        setMeasuredDimension(
+            size + (2 * shadowRadius).toInt(),
+            (size * params.scaleForTranslation + 2 * shadowRadius).toInt()
+        )
 }
