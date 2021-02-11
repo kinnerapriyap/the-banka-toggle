@@ -137,7 +137,7 @@ class MainLayout @JvmOverloads constructor(
             yCoordinate = top
             when {
                 justUnstuck -> {
-                    springBack(top)
+                    springBack()
                     justUnstuck = false
                 }
                 isAnimating -> return
@@ -147,7 +147,7 @@ class MainLayout @JvmOverloads constructor(
 
         var isAnimating = false
 
-        private fun springBack(top: Int) {
+        private fun springBack() {
             isAnimating = true
             val startPosition = if (potentiallyAtTop) 0f else dragRange.toFloat()
             val finalPosition =
