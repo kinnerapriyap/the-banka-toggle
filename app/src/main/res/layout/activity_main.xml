@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.kinnerapriyap.the_banka_toggle.MainLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.kinnerapriyap.the_banka_toggle.DragLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
@@ -20,4 +20,4 @@
         app:shadowRadius="10"
         app:size="300" />
 
-</com.kinnerapriyap.the_banka_toggle.MainLayout>
+</com.kinnerapriyap.the_banka_toggle.DragLayout>

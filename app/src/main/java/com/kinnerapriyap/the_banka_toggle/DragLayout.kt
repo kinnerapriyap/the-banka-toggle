@@ -17,7 +17,7 @@ import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import kotlin.math.abs
 
-class MainLayout @JvmOverloads constructor(
+class DragLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
