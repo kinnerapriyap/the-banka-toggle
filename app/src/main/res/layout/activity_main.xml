@@ -4,8 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal"
+    android:layout_height="500dp"
+    android:layout_gravity="center"
+    android:background="@drawable/capsule_bg"
+    android:foreground="@drawable/capsule_outline"
+    android:paddingHorizontal="1.5dp"
     tools:context=".MainActivity">
 
     <com.kinnerapriyap.the_banka_toggle.StretchableSquare
@@ -17,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:paintColorBottom="@android:color/holo_orange_light"
         app:paintColorTop="@android:color/holo_green_light"
-        app:shadowRadius="10"
-        app:size="300" />
+        app:shadowRadius="0"
+        app:size="200" />
 
 </com.kinnerapriyap.the_banka_toggle.DragLayout>
