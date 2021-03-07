@@ -2,6 +2,10 @@
 
 This Android implementation is inspired by the iOS version of [@CodeSlice](https://twitter.com/CodeSlice)'s [Ridiculously Large, Sticky, and Stretchy Toggle](https://twitter.com/CodeSlice/status/1337108594718859271)
 
+## With Jetpack Compose
+
+Implementation: [do-you-wanna-build-a-countdown-timer](https://github.com/kinnerapriyap/do-you-wanna-build-a-countdown-timer)
+
 ## Current బంక status
 
 | Basic | Capsule [(See impl PR)](https://github.com/kinnerapriyap/the-banka-toggle/pull/1) | Three in one [(See impl PR)](https://github.com/kinnerapriyap/the-banka-toggle/pull/2) |
